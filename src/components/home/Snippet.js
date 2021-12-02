@@ -1,17 +1,40 @@
 import React from "react";
+import { DeleteSnippet } from "../../api/snippet";
+import "./Snippet.scss";
 
-export default function Snippet(props) {
+export default function Snippet({
+  snippet,
+  getSnippets,
+  setNewSnippetEditorOpen,
+  setEditSnippetData,
+}) {
+  const handleDelete = async () => {
+    const result = await DeleteSnippet(snippet._id);
+    getSnippets();
+  };
+
+  const handleEdit = async () => {
+    setNewSnippetEditorOpen(true);
+    setEditSnippetData(snippet);
+  };
+
   return (
     <div className="snippet">
-      {props.snippet.title && <h2>Title : {props.snippet.title} </h2>}
-      {props.snippet.description && (
-        <b>Description : {props.snippet.description} </b>
+      {snippet.title && <h2 className="title">Title : {snippet.title} </h2>}
+      {snippet.description && (
+        <p className="description">Description : {snippet.description} </p>
       )}
-      {props.snippet.code && (
-        <pre>
-          Code : <code>{props.snippet.code}</code>
+      {snippet.code && (
+        <pre className="code">
+          Code : <code>{snippet.code}</code>
         </pre>
       )}
+      <button className="btn-edit" type="button" onClick={handleEdit}>
+        Edit
+      </button>
+      <button className="btn-delete" type="button" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 }
