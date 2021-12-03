@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
+import "./Home.scss";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
@@ -37,9 +38,12 @@ function Home() {
   }
 
   return (
-    <>
+    <div className="home-container">
       {!NewSnippetEditorOpen && (
-        <button onClick={() => setNewSnippetEditorOpen(true)}>
+        <button
+          className="btn-add"
+          onClick={() => setNewSnippetEditorOpen(true)}
+        >
           Add Snippet
         </button>
       )}
@@ -52,7 +56,7 @@ function Home() {
         />
       )}
       {!NewSnippetEditorOpen && <div>{renderSnippets()}</div>}
-    </>
+    </div>
   );
 }
 

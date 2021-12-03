@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AddSnippet, UpdateSnippet } from "../../api/snippet";
-
+import "./SnippetEditor.scss";
 function SnippetEditor({
   setNewSnippetEditorOpen,
   getSnippets,
@@ -60,34 +60,34 @@ function SnippetEditor({
     // console.log(snippets);
   }
   return (
-    <>
-      <div className="snippet-editor">
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="editor-title">Title :</label>
-          <input
-            id="editor-title"
-            value={editorTitle}
-            onChange={(e) => setEditorTitle(e.target.value)}
-          ></input>
-          <label htmlFor="editor-desc">Desciption :</label>
-          <input
-            id="editor-desc"
-            value={editorDesc}
-            onChange={(e) => setEditorDesc(e.target.value)}
-          ></input>
-          <label htmlFor="editor-code">Code :</label>
-          <textarea
-            id="editor-code"
-            value={editorCode}
-            onChange={(e) => setEditorCode(e.target.value)}
-          ></textarea>
-          <button type="submit">Submit</button>
-          <button type="button" onClick={closeEditor}>
-            Close
-          </button>
-        </form>
-      </div>
-    </>
+    <div className="snippet-editor">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="editor-title">Title :</label>
+        <input
+          id="editor-title"
+          value={editorTitle}
+          onChange={(e) => setEditorTitle(e.target.value)}
+        ></input>
+        <label htmlFor="editor-desc">Desciption :</label>
+        <input
+          id="editor-desc"
+          value={editorDesc}
+          onChange={(e) => setEditorDesc(e.target.value)}
+        ></input>
+        <label htmlFor="editor-code">Code :</label>
+        <textarea
+          id="editor-code"
+          value={editorCode}
+          onChange={(e) => setEditorCode(e.target.value)}
+        ></textarea>
+        <button className="btn-save" type="submit">
+          Save
+        </button>
+        <button className="btn-close" type="button" onClick={closeEditor}>
+          Close
+        </button>
+      </form>
+    </div>
   );
 }
 

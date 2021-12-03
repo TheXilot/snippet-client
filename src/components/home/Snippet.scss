@@ -21,8 +21,12 @@
     font-size: 1.3rem;
     background-color: var(--dark-color);
   }
-  .btn-delete,
+  .btn-delete {
+    background: var(--danger-color);
+    color: var(--light-color);
+  }
   .btn-edit {
-    @include btn();
+    background: var(--primary-color);
+    color: var(--light-color);
   }
 }
