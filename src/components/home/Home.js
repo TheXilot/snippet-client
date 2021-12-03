@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
+import Input from "../misc/Input";
 import "./Home.scss";
 
 function Home() {
@@ -39,6 +40,7 @@ function Home() {
 
   return (
     <div className="home-container">
+      <Input />
       {!NewSnippetEditorOpen && (
         <button
           className="btn-add"
