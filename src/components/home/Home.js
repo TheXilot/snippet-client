@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
-import Input from "../misc/Input";
+// import Input from "../misc/Input";
 import "./Home.scss";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
   const [NewSnippetEditorOpen, setNewSnippetEditorOpen] = useState(false);
+
   const [editSnippetData, setEditSnippetData] = useState(null);
   useEffect(() => {
     //get snippet
@@ -40,7 +41,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <Input />
+      {/* <Input /> */}
       {!NewSnippetEditorOpen && (
         <button
           className="btn-add"

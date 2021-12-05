@@ -3,14 +3,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/misc/Navbar";
 import Home from "./components/home/Home";
 import TopBar from "./components/TopBar";
+import Register from "./components/auth/Register";
 
 function Router() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route exact path="/admin" element={<TopBar />}></Route>
-      </Routes>
       <NavBar />
+      <Routes>
+        {/* <Route exact path="/" element={<TopBar />}></Route> */}
+        <Route exact path="/register" element={<Register />}></Route>
+        {/* <Route exact path="/" element={<TopBar />}></Route> */}
+      </Routes>
       <Home />
     </BrowserRouter>
   );
