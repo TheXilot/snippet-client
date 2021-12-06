@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from "axios";
 import Snippet from "./Snippet";
 import SnippetEditor from "./SnippetEditor";
 // import Input from "../misc/Input";
 import "./Home.scss";
+import UserContext from "../../context/UserContext";
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
   const [NewSnippetEditorOpen, setNewSnippetEditorOpen] = useState(false);
 
   const [editSnippetData, setEditSnippetData] = useState(null);
+
+  const user = useContext(UserContext);
+
   useEffect(() => {
     //get snippet
     getSnippets();
   }, []);
 
   const getSnippets = async () => {
-    const snippetsRes = await Axios.get("http://localhost:5000/snippet/");
+    const snippetsRes = await Axios.get("http://localhost:5000/snippet/", {
+      withCredentials: true,
+    });
     console.log(snippetsRes.data);
     setSnippets(snippetsRes.data);
   };
@@ -42,7 +48,7 @@ function Home() {
   return (
     <div className="home-container">
       {/* <Input /> */}
-      {!NewSnippetEditorOpen && (
+      {!NewSnippetEditorOpen && user && (
         <button
           className="btn-add"
           onClick={() => setNewSnippetEditorOpen(true)}

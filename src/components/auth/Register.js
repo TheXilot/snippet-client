@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Register.scss";
 import { AddUser } from "../../api/auth";
 
@@ -6,7 +6,11 @@ function Register({ setRegisterFormOpen }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
+  const [formError, setFormError] = useState(undefined);
 
+  useEffect(() => {
+    setFormError(undefined);
+  }, [email, password, passwordVerify]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     let Rdata = null;
@@ -18,16 +22,18 @@ function Register({ setRegisterFormOpen }) {
     Rdata = await AddUser(formUser)
       .then((res) => {
         console.log("res : ", res);
-        return true;
+        return { result: true, data: res.data };
       })
       .catch((err) => {
-        console.log(err.response.data.errorMessage);
-        return false;
+        return { result: false, errorMessage: err.response.data.errorMessage };
       });
-    console.log(Rdata);
-    closeEditor();
+    if (Rdata.result) {
+      closeEditor();
+      console.log(Rdata);
+    } else {
+      setFormError(Rdata.errorMessage);
+    }
   };
-
   function closeEditor() {
     setRegisterFormOpen(false);
     setPassword("");
@@ -64,6 +70,7 @@ function Register({ setRegisterFormOpen }) {
             setPasswordVerify(e.target.value);
           }}
         ></input>
+        {formError && <span className="error">{formError}</span>}
         <button className="btn-save" type="submit">
           Save
         </button>

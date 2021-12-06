@@ -3,6 +3,7 @@ import axios from "axios";
 const API_ENDPOINTS = {
   ADD_USER: () => "http://localhost:5000/auth/",
   LOGIN_USER: () => "http://localhost:5000/auth/login/",
+  LOGGEDIN_USER: () => "http://localhost:5000/auth/loggedIn/",
 };
 
 // async function getClasses() {
@@ -11,7 +12,6 @@ const API_ENDPOINTS = {
 //   );
 //   return years;
 // }
-
 async function AddUser({ email, password, passwordVerify }) {
   const body = {
     email,
@@ -28,7 +28,15 @@ async function LoginUSER({ email, password }) {
     password,
   };
 
-  return await axios.post(API_ENDPOINTS.LOGIN_USER(), body);
+  return await axios.post(API_ENDPOINTS.LOGIN_USER(), body, {
+    withCredentials: true,
+  });
 }
 
-export { AddUser, LoginUSER };
+async function LoggedInUser() {
+  return await axios.get(API_ENDPOINTS.LOGGEDIN_USER(), {
+    withCredentials: true,
+  });
+}
+
+export { AddUser, LoginUSER, LoggedInUser };
