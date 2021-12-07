@@ -32,7 +32,7 @@ function SnippetEditor({
   // };
   async function handleSubmit(e) {
     e.preventDefault();
-    let Rdata = null;
+    // let Rdata = null;
     const newSnippet = {
       title: editorTitle,
       description: editorDesc,
@@ -41,9 +41,9 @@ function SnippetEditor({
     if (editSnippetData !== null) {
       newSnippet._id = editSnippetData._id;
       console.log(newSnippet);
-      const Rdata = await UpdateSnippet(newSnippet);
+      await UpdateSnippet(newSnippet);
     } else {
-      Rdata = await AddSnippet(newSnippet);
+      await AddSnippet(newSnippet);
     }
 
     // const data = setSnippet(newSnippet);

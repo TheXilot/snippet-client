@@ -9,7 +9,7 @@ export default function Snippet({
   setEditSnippetData,
 }) {
   const handleDelete = async () => {
-    const result = await DeleteSnippet(snippet._id);
+    await DeleteSnippet(snippet._id);
     getSnippets();
   };
 

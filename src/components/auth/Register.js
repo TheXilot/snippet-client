@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Register.scss";
-import { AddUser } from "../../api/auth";
+import { AddUser, LoginUSER } from "../../api/auth";
 
-function Register({ setRegisterFormOpen }) {
+function Register({ setRegisterFormOpen, getUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
@@ -30,6 +30,8 @@ function Register({ setRegisterFormOpen }) {
     if (Rdata.result) {
       closeEditor();
       console.log(Rdata);
+      await LoginUSER({ email, password });
+      await getUser();
     } else {
       setFormError(Rdata.errorMessage);
     }

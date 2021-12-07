@@ -4,6 +4,7 @@ const API_ENDPOINTS = {
   ADD_USER: () => "http://localhost:5000/auth/",
   LOGIN_USER: () => "http://localhost:5000/auth/login/",
   LOGGEDIN_USER: () => "http://localhost:5000/auth/loggedIn/",
+  LOGOUT_USER: () => "http://localhost:5000/auth/logout/",
 };
 
 // async function getClasses() {
@@ -39,4 +40,9 @@ async function LoggedInUser() {
   });
 }
 
-export { AddUser, LoginUSER, LoggedInUser };
+async function LogOutUser() {
+  return await axios.get(API_ENDPOINTS.LOGOUT_USER(), {
+    withCredentials: true,
+  });
+}
+export { AddUser, LoginUSER, LoggedInUser, LogOutUser };

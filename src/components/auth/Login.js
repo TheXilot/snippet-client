@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.scss";
 import { LoginUSER } from "../../api/auth";
+// import history from "../../history";
 
-function Login({ setLoginFormOpen }) {
+function Login({ setLoginFormOpen, getUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState(undefined);
+
+  useEffect(() => {
+    setFormError(undefined);
+  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,15 +21,14 @@ function Login({ setLoginFormOpen }) {
     };
     Rdata = await LoginUSER(formUser)
       .then((res) => {
-        console.log("res : ", res);
-        return true;
+        closeEditor();
       })
       .catch((err) => {
-        console.log(err.response.data.errorMessage);
-        return false;
+        setFormError(err.response.data.errorMessage);
       });
     console.log(Rdata);
-    closeEditor();
+
+    await getUser();
   };
 
   function closeEditor() {
@@ -52,6 +57,7 @@ function Login({ setLoginFormOpen }) {
             setPassword(e.target.value);
           }}
         ></input>
+        {formError && <span className="error">{formError}</span>}
         <button className="btn-save" type="submit">
           Login
         </button>

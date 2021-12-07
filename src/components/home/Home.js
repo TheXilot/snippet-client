@@ -12,18 +12,17 @@ function Home() {
 
   const [editSnippetData, setEditSnippetData] = useState(null);
 
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    //get snippet
-    getSnippets();
-  }, []);
+    if (!user) setSnippets([]);
+    else getSnippets();
+  }, [user]);
 
   const getSnippets = async () => {
     const snippetsRes = await Axios.get("http://localhost:5000/snippet/", {
       withCredentials: true,
     });
-    console.log(snippetsRes.data);
     setSnippets(snippetsRes.data);
   };
 
@@ -64,7 +63,15 @@ function Home() {
           setEditSnippetData={setEditSnippetData}
         />
       )}
-      {!NewSnippetEditorOpen && <div>{renderSnippets()}</div>}
+      {!NewSnippetEditorOpen && snippets.length > 0 && (
+        <div>{renderSnippets()}</div>
+      )}
+      {user === null && (
+        <>
+          <h2 className="text-welcome">Welcome to the snippet manager</h2>
+          <p className="text-welcome">Please Register Here</p>
+        </>
+      )}
     </div>
   );
 }

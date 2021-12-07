@@ -1,4 +1,3 @@
-import { Axios } from "axios";
 import React, { createContext, useState, useEffect } from "react";
 import { LoggedInUser } from "../api/auth";
 
@@ -10,12 +9,19 @@ function UserContextProvider(props) {
   }, []);
 
   async function getUser() {
-    const userRes = await LoggedInUser();
-    setUser(userRes.data);
+    console.log(user);
+    try {
+      const userRes = await LoggedInUser();
+      setUser(userRes.data);
+    } catch (err) {
+      setUser(null);
+    }
   }
 
   return (
-    <UserContext.Provider value={user}>{props.children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, getUser }}>
+      {props.children}
+    </UserContext.Provider>
   );
 }
 
